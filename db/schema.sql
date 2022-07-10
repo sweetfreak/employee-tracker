@@ -1,26 +1,24 @@
-DROP TABLE IF EXISTS department;
-DROP TABLE IF EXISTS role;
-DROP TABLE IF EXISTS employee;
+DROP TABLE IF EXISTS departments;
+DROP TABLE IF EXISTS positions;
+DROP TABLE IF EXISTS employees;
 
-CREATE TABLE department(
+CREATE TABLE departments (
     id INTEGER PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(30) NOT NULL
-)
+    dept_name VARCHAR(30) NOT NULL);
 
-CREATE TABLE role (
+CREATE TABLE positions (
     id INTEGER PRIMARY KEY AUTO_INCREMENT,
-    title VARCHAR(30),
-    salary DECIMAL,
+    position VARCHAR(30) NOT NULL,
+    salary DECIMAL NOT NULL,
     department_id INTEGER,
-    -- maybe some constraint or foreing key stuff here?
-)
+    isManager BOOLEAN,
+-- maybe some constraint or foreign key stuff here?
+    CONSTRAINT fk_department FOREIGN KEY (department_id) REFERENCES departments(id) ON DELETE SET NULL);
 
-CREATE TABLE employee (
+CREATE TABLE employees (
     id INTEGER PRIMARY KEY AUTO_INCREMENT,
     first_name VARCHAR(30) NOT NULL,
     last_name VARCHAR(30) NOT NULL,
-    role_id INTEGER,
-    manager_id INTEGER
+    position_id INTEGER,
+   CONSTRAINT fk_position FOREIGN KEY (position_id) REFERENCES positions(id) ON DELETE SET NULL);
 
-    -- constraint stuff that i'm not 100% on
-)
